@@ -1,5 +1,6 @@
 package com.customautosys.cross_origin_isolated_headers;
 
+import android.util.Log;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
