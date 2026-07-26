@@ -6,6 +6,7 @@ import android.webkit.WebView;
 import org.apache.cordova.CordovaInterface;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CordovaWebView;
+import org.apache.cordova.engine.SystemWebView;
 import org.apache.cordova.engine.SystemWebViewClient;
 import org.apache.cordova.engine.SystemWebViewEngine;
 
@@ -16,13 +17,17 @@ import java.util.Map;
 public class CrossOriginIsolatedHeaders extends CordovaPlugin{
 	protected CordovaInterface cordovaInterface;
 	protected CordovaWebView cordovaWebView;
+	protected SystemWebViewEngine systemWebViewEngine;
+	protected SystemWebView systemWebView;
 
 	@Override
 	public void initialize(CordovaInterface cordovaInterface,CordovaWebView cordovaWebView){
 		this.cordovaInterface=cordovaInterface;
 		this.cordovaWebView=cordovaWebView;
+		this.systemWebViewEngine=(SystemWebViewEngine)this.cordovaWebView.getEngine();
+		this.systemWebView=(SystemWebView)this.systemWebViewEngine.getView();
 
-    	this.cordovaWebView.setWebViewClient(new SystemWebViewClient((SystemWebViewEngine)this.cordovaWebView.getEngine()){
+    	this.systemWebView.setWebViewClient(new SystemWebViewClient(this.systemWebViewEngine){
 			@Override
 			public WebResourceResponse shouldInterceptRequest(
 				WebView webView,
