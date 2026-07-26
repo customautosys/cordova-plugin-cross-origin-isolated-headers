@@ -15,17 +15,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CrossOriginIsolatedHeaders extends CordovaPlugin{
-	protected CordovaInterface cordovaInterface;
-	protected CordovaWebView cordovaWebView;
 	protected SystemWebViewEngine systemWebViewEngine;
 	protected SystemWebView systemWebView;
 
 	@Override
-	public void initialize(CordovaInterface cordovaInterface,CordovaWebView cordovaWebView){
-		this.cordovaInterface=cordovaInterface;
-		this.cordovaWebView=cordovaWebView;
-		this.systemWebViewEngine=(SystemWebViewEngine)this.cordovaWebView.getEngine();
-		this.systemWebView=(SystemWebView)this.systemWebViewEngine.getView();
+	public void pluginInitialize(){
+		System.out.println("pluginInitialize");
+		this.systemWebViewEngine=(SystemWebViewEngine)this.webView.getEngine();
+		this.systemWebView=(SystemWebView)this.webView.getView();
+		Log.d("initialize - cordovaInterface",this.cordova.toString());
+		Log.d("initialize - cordovaWebView",this.webView.toString());
+		Log.d("initialize - systemWebViewEngine",this.systemWebViewEngine.toString());
+		Log.d("initialize - systemWebView",this.systemWebView.toString());
 
     	this.systemWebView.setWebViewClient(new SystemWebViewClient(this.systemWebViewEngine){
 			@Override
@@ -33,10 +34,12 @@ public class CrossOriginIsolatedHeaders extends CordovaPlugin{
 				WebView webView,
 				WebResourceRequest request
 			){
+				Log.d("shouldInterceptRequest - request", request.toString());
 				WebResourceResponse response=super.shouldInterceptRequest(
 					webView,
 					request
 				);
+				Log.d("shouldInterceptRequest - response", response.toString());
 
 				if(response!=null){
 					Map<String,String> headers=response.getResponseHeaders();
