@@ -35,14 +35,14 @@ public class CrossOriginIsolatedHeaders extends CordovaPlugin{
 				WebView webView,
 				WebResourceRequest request
 			){
-				Log.d("shouldInterceptRequest - request", request.toString());
+				Log.d("shouldInterceptRequest - request", request.getUrl().toString());
 				WebResourceResponse response=super.shouldInterceptRequest(
 					webView,
 					request
 				);
-				Log.d("shouldInterceptRequest - response", response.toString());
 
-				if(response!=null){
+				if(request.getUrl().toString().contains("file:///android_asset/www/index.html")&&response!=null){
+					Log.d("shouldInterceptRequest - response", response.toString());
 					Map<String,String> headers=response.getResponseHeaders();
 					if(headers==null){
 						headers=new HashMap<>();
