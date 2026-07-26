@@ -13,6 +13,7 @@
 		<config-file parent="/*" target="res/xml/config.xml">
 			<feature name="CrossOriginIsolatedHeaders">
 				<param name="android-package" value="com.customautosys.cross_origin_isolated_headers.CrossOriginIsolatedHeaders"/>
+				<param name="onload" value="true" />
 			</feature>
 		</config-file>
 
